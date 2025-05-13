@@ -1,5 +1,5 @@
-export const initialStore=()=>{
-  return{
+export const initialStore = () => {
+  return {
     message: null,
     todos: [
       {
@@ -14,7 +14,7 @@ export const initialStore=()=>{
       }
     ],
     // saludo:"",
-    character:[],
+    character: [],
     // vehiculos:[]
   }
 }
@@ -22,7 +22,7 @@ export const initialStore=()=>{
 export default function storeReducer(store, action = {}) {
 
   switch (action.type) {
-    case 'add_task': 
+    case 'add_task':
       const { id, color } = action.payload;
       return {
         ...store,
@@ -32,15 +32,15 @@ export default function storeReducer(store, action = {}) {
       };
 
 
-    case "set_personajes": 
+    case "set_personajes":
       const { personaje } = action.payload
       return {
         ...store,
-        characters: personaje,
+        character: personaje
       }
 
     default:
 
-      throw new Error('Unknown action.');
+      throw new Error("Unknown action.");
   }
 }
