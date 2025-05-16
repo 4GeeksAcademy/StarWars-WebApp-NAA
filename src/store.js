@@ -15,6 +15,7 @@ export const initialStore = () => {
     ],
     // saludo:"",
     character: [],
+    favorites: []
     // vehiculos:[]
   }
 }
@@ -31,6 +32,7 @@ export default function storeReducer(store, action = {}) {
         ))
       };
 
+    /// nuestro
 
     case "set_personajes":
       const { personaje } = action.payload
@@ -38,6 +40,21 @@ export default function storeReducer(store, action = {}) {
         ...store,
         character: personaje
       }
+
+    /// agregar favorito
+
+    case "newFavorite":
+      const addFavorite = action.payload
+      return {
+        ...store, favorites: addFavorite
+      }
+
+
+    // case "removeFavorite":
+    //   return {
+    //     ...store,
+    //     favorites: store.favorites.filter(name => name !== action.payload)
+    //   };
 
     default:
 

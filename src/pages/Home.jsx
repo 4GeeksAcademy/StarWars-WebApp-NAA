@@ -38,14 +38,14 @@ export const Home = () => {
 	return (
 		<div className="container">
 			<h1>Personajes!!</h1>
-			<div>
+			<div className = "d-flex flex-row overflow-scroll">
 				{store.character.map((value, index) => {
 					return (
 						<CharacterCard key={index} people={value} />
 					)
 				})}
 
-			</div> */
+			</div>
 
 		</div>
 

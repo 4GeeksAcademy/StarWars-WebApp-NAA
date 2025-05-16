@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer"
 
 export const Navbar = () => {
+	const { store, dispatch } = useGlobalReducer()
+	console.log(store.favorites);
 
 	return (
 		<nav className="navbar navbar-light bg-light">
