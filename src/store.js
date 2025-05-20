@@ -1,63 +1,68 @@
 export const initialStore = () => {
   return {
-    message: null,
-    todos: [
-      {
-        id: 1,
-        title: "Make the bed",
-        background: null,
-      },
-      {
-        id: 2,
-        title: "Do my homework",
-        background: null,
-      }
-    ],
-    // saludo:"",
     character: [],
+    planet: [],
+    vehicle: [],
     favorites: []
-    // vehiculos:[]
-  }
-}
+  };
+};
 
 export default function storeReducer(store, action = {}) {
-
   switch (action.type) {
-    case 'add_task':
-      const { id, color } = action.payload;
-      return {
-        ...store,
-        todos: store.todos.map((todo) => (
-          todo.id === id ? { ...todo, background: color } : todo
-        ))
-      };
-
-    /// nuestro
-
-    case "set_personajes":
-      const { personaje } = action.payload
+    case "set_personajes": {
+      const { personaje } = action.payload;
       return {
         ...store,
         character: personaje
-      }
+      };
+    }
 
-    /// agregar favorito
-
-    case "newFavorite":
-      const addFavorite = action.payload
+    case "set_planetas": {
+      const { planeta } = action.payload;
       return {
-        ...store, favorites: addFavorite
-      }
+        ...store,
+        planet: planeta
+      };
+    }
 
+    case "set_vehiculos": {
+      const { vehiculo } = action.payload;
+      return {
+        ...store,
+        vehicle: vehiculo
+      };
+    }
 
-    // case "removeFavorite":
-    //   return {
-    //     ...store,
-    //     favorites: store.favorites.filter(name => name !== action.payload)
-    //   };
+    case "newFavorite": {
+      const nameToAdd = action.payload;
+
+      // Check if already in favorites
+      const alreadyInFavorites = store.favorites.some(fav => fav.name === nameToAdd);
+      if (alreadyInFavorites) return store;
+
+      // Find full character object by name
+      const characterObj = store.character.find(char => char.name === nameToAdd);
+      const planetObj = store.planet.find(plan => plan.name === nameToAdd);
+      const vehicleObj = store.vehicle.find(veh => veh.name === nameToAdd);
+
+      if (!characterObj && !planetObj && !vehicleObj) return store;
+
+      return {
+        ...store,
+        favorites: [...store.favorites, characterObj || planetObj || vehicleObj]
+      };
+    }
+
+    case "removeFavorite": {
+      const nameToRemove = action.payload;
+      return {
+        ...store,
+        favorites: store.favorites.filter(fav => fav.name !== nameToRemove)
+      };
+    }
 
     default:
-
       throw new Error("Unknown action.");
   }
+
 }
